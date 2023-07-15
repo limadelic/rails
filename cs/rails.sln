@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rails", "src\Rails\Rails.csproj", "{5236BD96-BE7F-4A72-B3B8-C0806DD14F09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit", "tests\Unit\Unit.csproj", "{A0D6E2DF-2DDF-4ECA-8031-1FDB51F9A7A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "tests\Examples\Examples.csproj", "{A0D6E2DF-2DDF-4ECA-8031-1FDB51F9A7A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
