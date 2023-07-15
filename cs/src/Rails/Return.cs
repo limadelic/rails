@@ -1,6 +1,6 @@
 ﻿namespace Rails;
 
-public static class Result
+public static class Return
 {
     public static Result<T> Ok<T>(T value) => new(value);
     public static Result<T> Error<T>(T value) => new(value, false);
@@ -23,11 +23,11 @@ public class Result<T> : IRailway
     public static implicit operator T(Result<T> result) => result.value;
 
     public Result<T> When(Func<T, bool> filter) => Fail ?? 
-        (filter(value) ? Result.Ok(value) : Result.Error(value));
+        (filter(value) ? Return.Ok(value) : Return.Error(value));
 }
 
 public static class Extensions
 {
     public static Result<T> When<T>(this T value, Func<T, bool> filter) => 
-        Result.Ok(value).When(filter);
+        Return.Ok(value).When(filter);
 }
