@@ -5,13 +5,10 @@ public class Login
     string? User { get; set; }
     string? Pass { get; set; }
 
-    Result SetCreds(string user, string pass)
-    {
-        User = user;
-        Pass = pass;
-
-        return true;
-    }
+    Result SetCreds(string user, string pass) 
+        => Return.Ok
+            .Then(() => User = user)
+            .Then(() => Pass = pass);
     
     [Test]
     public void HappyPath()

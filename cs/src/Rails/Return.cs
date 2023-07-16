@@ -2,8 +2,13 @@
 
 public static class Return
 {
-    public static Result<T> Ok<T>(T value) => new(value);
-    public static Result<T> Error<T>(T value) => new(value, false);
+    public static Result Ok => new();
+}
+
+public static class Return<T>
+{
+    public static Result<T> Ok(T value) => new(value);
+    public static Result<T> Error(T value) => new(value, false);
 }
 
 public class Result : IRailway
@@ -17,6 +22,12 @@ public class Result : IRailway
 
     public static implicit operator Result(bool ok) => new(ok);
     public static implicit operator bool(Result result) => result.Ok;
+    
+    public Result Then(Action action)
+    {
+        action();
+        return this;
+    }
 }
 
 public class Result<T> : Result
@@ -34,11 +45,11 @@ public class Result<T> : Result
     public static implicit operator T(Result<T> result) => result.value;
 
     public Result<T> When(Func<T, bool> filter) => Fail ?? 
-        (filter(value) ? Return.Ok(value) : Return.Error(value));
+        (filter(value) ? Return<T>.Ok(value) : Return<T>.Error(value));
 }
 
 public static class Extensions
 {
     public static Result<T> When<T>(this T value, Func<T, bool> filter) => 
-        Return.Ok(value).When(filter);
+        Return<T>.Ok(value).When(filter);
 }
