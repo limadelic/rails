@@ -6,7 +6,15 @@ public static class Assertions
 {
     public static void BeOk(this ObjectAssertions assertion)
     {
-        var Result = (Result) assertion.Subject;
-        Result.Ok.Should().BeTrue();
+        var Result = assertion.Subject;
+        Result.Should().BeOfType<Ok>();
+    }
+
+    public static void BeError(this ObjectAssertions assertion, string message)
+    {
+        var Result = assertion.Subject;
+        Result.Should().BeOfType<Error>();
+        var Error = (Error)Result;
+        Error.Message.Should().Be(message);
     }
 }
