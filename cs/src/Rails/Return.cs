@@ -6,17 +6,28 @@ public static class Return
     public static Result<T> Error<T>(T value) => new(value, false);
 }
 
-public class Result<T> : IRailway
+public class Result : IRailway
 {
     public bool Ok { get; }
+
+    public Result(bool ok = true)
+    {
+        Ok = ok;
+    }
+
+    public static implicit operator Result(bool ok) => new(ok);
+    public static implicit operator bool(Result result) => result.Ok;
+}
+
+public class Result<T> : Result
+{
 
     private readonly T value;
     private Result<T>? Fail => Ok ? null : this;
 
-    public Result(T value, bool ok = true)
+    public Result(T value, bool ok = true) : base(ok)
     {
         this.value = value;
-        Ok = ok;
     }
 
     public static implicit operator Result<T>(T value) => new(value);
