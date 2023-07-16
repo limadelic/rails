@@ -7,7 +7,7 @@ public class Login
 
     Result SetCreds(string? user, string pass) 
         => Return.Ok
-            .When(() => user is not null, "user is required")
+            .Reject(() => user is null, Messages.User.IsRequired)
             .Then(() => User = user)
             .Then(() => Pass = pass);
     
@@ -21,11 +21,14 @@ public class Login
         Pass.Should().Be("53CR3T");
     }
 
-    [TestCase(null, null, "user is required")]
+    [TestCase(null, null, Messages.User.IsRequired)]
     public void SadPath(string user, string pass, string error)
     {
         SetCreds(user, pass)
             .Should().BeError(error);
+
+        User.Should().BeNull();
+        Pass.Should().BeNull();
     }
 
 }

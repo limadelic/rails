@@ -2,14 +2,15 @@
 
 public static class Return
 {
+    public static Result New(bool ok, string message) => ok ? Ok : Error(message);
     public static Result Ok => new Ok();
     public static Result Error(string message) => new Error(message);
 }
 
 public abstract class Result : IRailway
 {
-    public Result When(Func<bool> condition, string message) => 
-        condition() ? Return.Ok : Return.Error(message);
+    public Result Reject(Func<bool> condition, string message) => 
+        Return.New(!condition(), message);
 
     public Result Then(Action action)
     {
