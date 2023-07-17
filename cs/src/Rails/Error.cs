@@ -21,10 +21,13 @@ public class Error : Result
 
 public class Error<T> : Error, Result<T>
 {
-    public T Value { get; }
-
-    public Error(T value, string message) : base(message)
+    public Error(string message) : base(message)
     {
-        Value = value;
+    }
+
+    public Result<T> Var(out T variable)
+    {
+        variable = default!;
+        return this;
     }
 }

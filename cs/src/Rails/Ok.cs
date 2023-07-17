@@ -38,4 +38,10 @@ public class Ok<T> : Ok, Result<T>
 
     public Result<T> If(Func<T, bool> condition, string message) => 
         Return<T>.Result(Value, condition(Value), message);
+
+    public Result<T> Var(out T variable)
+    {
+        variable = Value;
+        return this;
+    }
 }

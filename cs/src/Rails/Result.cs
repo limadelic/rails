@@ -18,4 +18,6 @@ public interface Result<T> : Result
     Result<T> Do(Func<T, T> action) => this;
 
     Result<T> If(Func<T, bool> condition, string message) => this;
+    
+    Result<T> Var(out T variable);
 }

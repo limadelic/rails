@@ -50,13 +50,13 @@ public class ResultOnly : Login
             
         Return.Ok
             .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
-            .Do(() => user = user.Trim())
-            .If(() => user.Length >= MinLength, Name.MinLength)
-            .If(() => user.Length <= MaxLength, Name.MaxLength)
+            .Var(out var validUser, () => user.Trim())
+            .If(() => validUser.Length >= MinLength, Name.MinLength)
+            .If(() => validUser.Length <= MaxLength, Name.MaxLength)
             .If(() => pass is not null, Password.Required)
             .If(() => pass.Length >= MinLength, Password.MinLength)
             .If(() => pass.Length <= MaxLength, Password.MaxLength)
-            .Do(() => User = user)
+            .Do(() => User = validUser)
             .Do(() => Pass = pass);
 }
 
@@ -71,28 +71,12 @@ public class WithValues : Login
             .Do(user => user.Trim())
             .If(user => user.Length >= MinLength, Name.MinLength)
             .If(user => user.Length <= MaxLength, Name.MaxLength)
-            .Do(user => User = user)
+            .Var(out var validUser)
             .With(pass)
             .If(pass => pass is not null, Password.Required)
             .If(pass => pass.Length >= MinLength, Password.MinLength)
             .If(pass => pass.Length <= MaxLength, Password.MaxLength)
-            .Do(pass => Pass = pass);
-}
-
-[TestFixture]
-public class WithVars : Login
-{
-    protected override Result SetCreds(string user, string pass) => 
-            
-        Return.Ok
-            .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
-            .Var(out var name, () => user.Trim())
-            .If(() => name.Length >= MinLength, Name.MinLength)
-            .If(() => name.Length <= MaxLength, Name.MaxLength)
-            .If(() => pass is not null, Password.Required)
-            .If(() => pass.Length >= MinLength, Password.MinLength)
-            .If(() => pass.Length <= MaxLength, Password.MaxLength)
-            .Do(() => User = name)
-            .Do(() => Pass = pass);
+            .Do(pass => Pass = pass)
+            .Do(_ => User = validUser);
 }
 

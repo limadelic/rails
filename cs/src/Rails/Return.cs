@@ -21,5 +21,5 @@ public static class Return<T>
         new Ok<T>(value);
     
     public static Result<T> Error(T value, string message) => 
-        new Error<T>(value, message);
+        new Error<T>(message);
 }
