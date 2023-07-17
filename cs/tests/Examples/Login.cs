@@ -95,3 +95,4 @@ public class WithVars : Login
             .Do(() => User = name)
             .Do(() => Pass = pass);
 }
+
