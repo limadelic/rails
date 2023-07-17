@@ -78,3 +78,20 @@ public class WithValues : Login
             .If(pass => pass.Length <= MaxLength, Password.MaxLength)
             .Do(pass => Pass = pass);
 }
+
+[TestFixture]
+public class WithVars : Login
+{
+    protected override Result SetCreds(string user, string pass) => 
+            
+        Return.Ok
+            .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
+            .Var(out var name, () => user.Trim())
+            .If(() => name.Length >= MinLength, Name.MinLength)
+            .If(() => name.Length <= MaxLength, Name.MaxLength)
+            .If(() => pass is not null, Password.Required)
+            .If(() => pass.Length >= MinLength, Password.MinLength)
+            .If(() => pass.Length <= MaxLength, Password.MaxLength)
+            .Do(() => User = name)
+            .Do(() => Pass = pass);
+}

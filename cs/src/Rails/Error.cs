@@ -11,6 +11,12 @@ public class Error : Result
 
     public Result<T> With<T>(T value) => 
         Return<T>.Error(value, Message);
+
+    public Result Var<T>(out T variable, Func<T> value)
+    {
+        variable = default!;
+        return this;
+    }
 }
 
 public class Error<T> : Error, Result<T>

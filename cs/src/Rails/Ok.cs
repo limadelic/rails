@@ -13,6 +13,12 @@ public class Ok : Result
 
     public Result If(Func<bool> condition, string message) => 
         Return.Result(condition(), message);
+
+    public Result Var<T>(out T variable, Func<T> value)
+    {
+        variable = value();
+        return this;
+    }
 }
 
 public class Ok<T> : Ok, Result<T>
