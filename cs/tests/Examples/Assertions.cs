@@ -13,7 +13,7 @@ public static class Assertions
     public static void BeError(this ObjectAssertions assertion, string message)
     {
         var Result = assertion.Subject;
-        Result.Should().BeOfType<Error>();
+        Result.Should().BeAssignableTo<Error>();
         var Error = (Error)Result;
         Error.Message.Should().Be(message);
     }

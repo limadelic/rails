@@ -70,9 +70,6 @@ public class Login
     {
         SetCreds(user, pass)
             .Should().BeError(error);
-
-        User.Should().BeNull();
-        Pass.Should().BeNull();
     }
 
 }

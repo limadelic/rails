@@ -11,7 +11,7 @@ public interface Result : IRailway
 
 public interface Result<T> : Result
 {
-    public Result<T> With(T value) => this;
+    public new Result<TT> With<TT>(TT value);
 
     public Result<T> Do(Func<T, T> action) => this;
 

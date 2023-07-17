@@ -9,5 +9,16 @@ public class Error : Result
         Message = message;
     }
 
-    public Result<T> With<T>(T value) { throw new NotImplementedException(); }
+    public Result<T> With<T>(T value) => 
+        Return<T>.Error(value, Message);
+}
+
+public class Error<T> : Error, Result<T>
+{
+    public T Value { get; }
+
+    public Error(T value, string message) : base(message)
+    {
+        Value = value;
+    }
 }
