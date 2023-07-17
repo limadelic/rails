@@ -7,12 +7,12 @@ public class Login
     string? User { get; set; }
     string? Pass { get; set; }
 
-    readonly int MaxAccountInfoLength = 5;
+    readonly int MaxLength = 5;
     
     Result SetCreds(string? user, string pass) 
         => Return.Ok
             .Unless(() => user is null, Name.Required)
-            .Unless(() => user!.Trim().Length > MaxAccountInfoLength, Name.MaxLength)
+            .Or(() => user!.Trim().Length > MaxLength, Name.MaxLength)
             .Do(() => User = user)
             .Do(() => Pass = pass);
 
