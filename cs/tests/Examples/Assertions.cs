@@ -7,7 +7,7 @@ public static class Assertions
     public static void BeOk(this ObjectAssertions assertion)
     {
         var Result = assertion.Subject;
-        Result.Should().BeOfType<Ok>((Result as Error)?.Message);
+        Result.Should().BeAssignableTo<Ok>((Result as Error)?.Message);
     }
 
     public static void BeError(this ObjectAssertions assertion, string message)

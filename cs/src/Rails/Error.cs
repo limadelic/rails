@@ -8,4 +8,6 @@ public class Error : Result
     {
         Message = message;
     }
+
+    public Result<T> With<T>(T value) { throw new NotImplementedException(); }
 }

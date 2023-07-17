@@ -12,8 +12,9 @@ public class Login
     readonly int MaxLength = 6;
     readonly int MinLength = 3;
 
-    protected virtual Result SetCreds(string user, string pass) 
-        => Return.Ok
+    protected virtual Result SetCreds(string user, string pass) => 
+        
+        Return.Ok
             .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
             .Do(() => user = user.Trim())
             .If(() => user.Length >= MinLength, Name.MinLength)
@@ -27,19 +28,20 @@ public class Login
     [TestFixture]
     public class WithValues : Login
     {
-        protected override Result SetCreds(string user, string pass) 
-            => Return.Ok
+        protected override Result SetCreds(string user, string pass) => 
+            
+            Return.Ok
                 .With(user)
-                .If(x => !string.IsNullOrWhiteSpace(x), Name.Required)
-                .Do(x => x.Trim())
-                .If(x => x.Length >= MinLength, Name.MinLength)
-                .If(x => x.Length <= MaxLength, Name.MaxLength)
+                .If(user => !string.IsNullOrWhiteSpace(user), Name.Required)
+                .Do(user => user.Trim())
+                .If(user => user.Length >= MinLength, Name.MinLength)
+                .If(user => user.Length <= MaxLength, Name.MaxLength)
+                .Do(user => User = user)
                 .With(pass)
-                .If(x => x is not null, Password.Required)
-                .If(x => x.Length >= MinLength, Password.MinLength)
-                .If(x => x.Length <= MaxLength, Password.MaxLength)
-                .Do(_ => User = user)
-                .Do(_ => Pass = pass);
+                .If(pass => pass is not null, Password.Required)
+                .If(pass => pass.Length >= MinLength, Password.MinLength)
+                .If(pass => pass.Length <= MaxLength, Password.MaxLength)
+                .Do(pass => Pass = pass);
     }
     
     [SetUp]
