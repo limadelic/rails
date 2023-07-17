@@ -1,18 +1,24 @@
 namespace Unit;
 
 using Name = Messages.User.Name;
+using Password = Messages.User.Pass;
 
 public class Login
 {
     string? User { get; set; }
     string? Pass { get; set; }
 
-    readonly int MaxLength = 5;
+    readonly int MaxLength = 6;
+    readonly int MinLength = 3;
     
-    Result SetCreds(string? user, string pass) 
+    Result SetCreds(string? user, string? pass) 
         => Return.Ok
-            .If(() => user is not null, Name.Required)
+            .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
+            .If(() => user!.Trim().Length >= MinLength, Name.MinLength)
             .If(() => user!.Trim().Length <= MaxLength, Name.MaxLength)
+            .If(() => pass is not null, Password.Required)
+            .If(() => pass!.Length >= MinLength, Password.MinLength)
+            .If(() => pass!.Length <= MaxLength, Password.MaxLength)
             .Do(() => User = user)
             .Do(() => Pass = pass);
 
@@ -33,7 +39,11 @@ public class Login
     }
 
     [TestCase(null, null, Name.Required)]
+    [TestCase("I", null, Name.MinLength)]
     [TestCase("LongName", null, Name.MaxLength)]
+    [TestCase("neo", null, Password.Required)]
+    [TestCase("neo", "X", Password.MinLength)]
+    [TestCase("neo", "LongPass", Password.MaxLength)]
     public void SadPath(string user, string pass, string error)
     {
         SetCreds(user, pass)
