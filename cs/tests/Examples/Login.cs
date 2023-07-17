@@ -11,11 +11,12 @@ public class Login
     readonly int MaxLength = 6;
     readonly int MinLength = 3;
     
-    Result SetCreds(string? user, string? pass) 
+    Result SetCreds(string user, string pass) 
         => Return.Ok
             .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
-            .If(() => user!.Trim().Length >= MinLength, Name.MinLength)
-            .If(() => user!.Trim().Length <= MaxLength, Name.MaxLength)
+            .Do(() => user = user.Trim())
+            .If(() => user.Length >= MinLength, Name.MinLength)
+            .If(() => user.Length <= MaxLength, Name.MaxLength)
             .If(() => pass is not null, Password.Required)
             .If(() => pass!.Length >= MinLength, Password.MinLength)
             .If(() => pass!.Length <= MaxLength, Password.MaxLength)
