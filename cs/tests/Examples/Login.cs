@@ -1,15 +1,26 @@
 namespace Unit;
 
+using Name = Messages.User.Name;
+
 public class Login
 {
     string? User { get; set; }
     string? Pass { get; set; }
 
+    readonly int MaxAccountInfoLength = 5;
+    
     Result SetCreds(string? user, string pass) 
         => Return.Ok
-            .Reject(() => user is null, Messages.User.IsRequired)
-            .Then(() => User = user)
-            .Then(() => Pass = pass);
+            .Unless(() => user is null, Name.Required)
+            .Unless(() => user!.Trim().Length > MaxAccountInfoLength, Name.MaxLength)
+            .Do(() => User = user)
+            .Do(() => Pass = pass);
+
+    [SetUp]
+    public void SetUp()
+    {
+        User = Pass = null;
+    }
     
     [Test]
     public void HappyPath()
@@ -21,7 +32,8 @@ public class Login
         Pass.Should().Be("53CR3T");
     }
 
-    [TestCase(null, null, Messages.User.IsRequired)]
+    [TestCase(null, null, Name.Required)]
+    [TestCase("LongName", null, Name.MaxLength)]
     public void SadPath(string user, string pass, string error)
     {
         SetCreds(user, pass)

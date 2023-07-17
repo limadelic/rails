@@ -4,6 +4,10 @@ class Messages
 {
     public class User
     {
-        public const string IsRequired = "user is required";
+        public class Name
+        {
+            public const string Required = "user name is required";
+            public const string MaxLength = "user name too long";
+        }
     }
 }
