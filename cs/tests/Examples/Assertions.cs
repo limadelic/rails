@@ -1,4 +1,4 @@
-namespace Unit;
+namespace Examples;
 
 using FluentAssertions.Primitives;
 
