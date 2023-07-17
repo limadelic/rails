@@ -8,9 +8,6 @@ public class Ok : Result
         return this;
     }
 
-    public override Result Unless(Func<bool> condition, string message) => 
-        Return.Result(!condition(), message);
-    
-    public override Result Or(Func<bool> condition, string message) => 
-        Unless(condition, message);
+    public override Result If(Func<bool> condition, string message) => 
+        Return.Result(condition(), message);
 }

@@ -11,8 +11,8 @@ public class Login
     
     Result SetCreds(string? user, string pass) 
         => Return.Ok
-            .Unless(() => user is null, Name.Required)
-            .Or(() => user!.Trim().Length > MaxLength, Name.MaxLength)
+            .If(() => user is not null, Name.Required)
+            .If(() => user!.Trim().Length <= MaxLength, Name.MaxLength)
             .Do(() => User = user)
             .Do(() => Pass = pass);
 
