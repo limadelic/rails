@@ -8,7 +8,7 @@ public interface Result
     
     Result<T> Do<T>(Func<T> function);
     
-    Result Not(Func<bool> condition, string message);
+    Result Not(Func<bool> condition, string message = null!);
 }
 
 public interface Result<T> : Result
@@ -19,5 +19,5 @@ public interface Result<T> : Result
     
     Result<TT> Do<TT>(Func<T, TT> function);
     
-    Result<T> Not(Func<T, bool> condition, string message);
+    Result<T> Not(Func<T, bool> condition, string message = null!);
 }

@@ -42,6 +42,6 @@ public class Ok<T> : Ok, Result<T>
     public Result<TT> Do<TT>(Func<T, TT> function) =>
         new Ok<TT>(function(Value));
 
-    public Result<T> Not(Func<T, bool> condition, string message) =>
+    public Result<T> Not(Func<T, bool> condition, string message = null!) =>
         condition(Value) ? new Error<T>(message) : this;
 }
