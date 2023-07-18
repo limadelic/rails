@@ -14,7 +14,8 @@ public class Login
     
     Result SetCreds(string user, string pass) => 
             
-        Return.Ok(user)
+        Return.Ok
+            .Do(user)
             .Not(string.IsNullOrWhiteSpace, Name.Required)
             .Do(user => user.Trim())
             .Not(user => user.Length < MinLength, Name.MinLength)

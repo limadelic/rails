@@ -2,8 +2,8 @@ namespace Rails;
 
 public class Ok : Result
 {
-    public Result<T> With<T>(T value) => 
-        Return<T>.Ok(value);
+    public Result<T> Do<T>(T value) => 
+        new Ok<T>(value);
 
     public Result Do(Action action)
     {
@@ -11,14 +11,11 @@ public class Ok : Result
         return this;
     }
 
-    public Result If(Func<bool> condition, string message) => 
-        Return.Result(condition(), message);
+    public Result<T> Do<T>(Func<T> function) =>
+        new Ok<T>(function());
 
-    public Result Var<T>(out T variable, Func<T> value)
-    {
-        variable = value();
-        return this;
-    }
+    public Result Not(Func<bool> condition, string message = null!) =>
+        condition() ? new Error(message) : this;
 }
 
 public class Ok<T> : Ok, Result<T>
@@ -30,18 +27,21 @@ public class Ok<T> : Ok, Result<T>
         Value = value;
     }
 
-    public new Result<TT> With<TT>(TT value) => 
-        Return<TT>.Ok(value);
-
-    public Result<T> Do(Func<T, T> action) =>
-        Return<T>.Ok(action(Value));
-
-    public Result<T> If(Func<T, bool> condition, string message) => 
-        Return<T>.Result(Value, condition(Value), message);
-
-    public Result<T> Var(out T variable)
+    public Result<T> Do(out T value)
     {
-        variable = Value;
+        value = Value;
         return this;
     }
+
+    public Result<T> Do(Action<T> action)
+    {
+        action(Value);
+        return this;
+    }
+
+    public Result<TT> Do<TT>(Func<T, TT> function) =>
+        new Ok<TT>(function(Value));
+
+    public Result<T> Not(Func<T, bool> condition, string message) =>
+        condition(Value) ? new Error<T>(message) : this;
 }
