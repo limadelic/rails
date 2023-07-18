@@ -61,7 +61,7 @@ public class Flow : Login
 }
 
 [TestFixture]
-public class FlowWithValues : Login
+public class Pipe : Login
 {
     protected override Result SetCreds(string user, string pass) => 
             

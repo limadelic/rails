@@ -18,4 +18,12 @@ class Messages
             public const string MinLength = "pass too short";
         }
     }
+
+    public class Offer
+    {
+        public class Candidate
+        {
+            public const string NotFound = "offer candidate not found";
+        }
+    }
 }

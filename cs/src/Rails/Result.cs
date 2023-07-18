@@ -1,6 +1,6 @@
 namespace Rails;
 
-public interface Result : IRailway
+public interface Result
 {
     Result<T> With<T>(T value);
     
