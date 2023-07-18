@@ -2,22 +2,18 @@ namespace Rails;
 
 public interface Result
 {
-    Result<T> With<T>(T value);
+    Result Do(Action action);
+    Result<T> Do<T>(T value);
+    Result<T> Do<T>(Func<T> function);
     
-    Result Do(Action action) => this;
-
-    Result If(Func<bool> condition, string message) => this;
-    
-    Result Var<T>(out T variable, Func<T> value);
+    Result Not(Func<bool> condition, string message);
 }
 
 public interface Result<T> : Result
 {
-    new Result<TT> With<TT>(TT value);
-
-    Result<T> Do(Func<T, T> action) => this;
-
-    Result<T> If(Func<T, bool> condition, string message) => this;
+    Result<T> Do(Action<T> action);
+    Result<T> Do(out T value);
+    Result<To> Do<To>(Func<T, To> function);
     
-    Result<T> Var(out T variable);
+    Result<T> Not(Func<T, bool> condition, string message);
 }

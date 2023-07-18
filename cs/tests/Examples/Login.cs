@@ -3,21 +3,33 @@ namespace Examples;
 using Name = Messages.User.Name;
 using Password = Messages.User.Pass;
 
-public abstract class Login
+[TestFixture]
+public class Login
 {
-    protected string? User { get; set; }
-    protected string? Pass { get; set; }
+    string User = null!;
+    string Pass = null!;
 
-    protected readonly int MaxLength = 6;
-    protected readonly int MinLength = 3;
-
-    protected abstract Rails.Result SetCreds(string user, string pass);
-        
+    readonly int MaxLength = 6;
+    readonly int MinLength = 3; 
+    
+    Result SetCreds(string user, string pass) => 
+            
+        Return.Ok(user)
+            .Not(string.IsNullOrWhiteSpace, Name.Required)
+            .Do(user => user.Trim())
+            .Not(user => user.Length < MinLength, Name.MinLength)
+            .Not(user => user.Length > MaxLength, Name.MaxLength)
+            .Do(out User)
+            .Do(pass)
+            .Not(pass => pass is null, Password.Required)
+            .Not(pass => pass.Length < MinLength, Password.MinLength)
+            .Not(pass => pass.Length > MaxLength, Password.MaxLength)
+            .Do(out Pass);
     
     [SetUp]
     public void SetUp()
     {
-        User = Pass = null;
+        User = Pass = null!;
     }
 
     [Test]
@@ -41,41 +53,5 @@ public abstract class Login
         SetCreds(user, pass)
             .Should().BeError(error);
     }
-}
-
-[TestFixture]
-public class Flow : Login
-{
-    protected override Result SetCreds(string user, string pass) => 
-            
-        Return.Ok
-            .If(() => !string.IsNullOrWhiteSpace(user), Name.Required)
-            .Do(() => user = user.Trim())
-            .If(() => user.Length >= MinLength, Name.MinLength)
-            .If(() => user.Length <= MaxLength, Name.MaxLength)
-            .If(() => pass is not null, Password.Required)
-            .If(() => pass.Length >= MinLength, Password.MinLength)
-            .If(() => pass.Length <= MaxLength, Password.MaxLength)
-            .Do(() => User = user)
-            .Do(() => Pass = pass);
-}
-
-[TestFixture]
-public class Pipe : Login
-{
-    protected override Result SetCreds(string user, string pass) => 
-            
-        Return.Ok
-            .With(user)
-            .If(user => !string.IsNullOrWhiteSpace(user), Name.Required)
-            .Do(user => user.Trim())
-            .If(user => user.Length >= MinLength, Name.MinLength)
-            .If(user => user.Length <= MaxLength, Name.MaxLength)
-            .Do(user => User = user)
-            .With(pass)
-            .If(pass => pass is not null, Password.Required)
-            .If(pass => pass.Length >= MinLength, Password.MinLength)
-            .If(pass => pass.Length <= MaxLength, Password.MaxLength)
-            .Do(pass => Pass = pass);
 }
 
