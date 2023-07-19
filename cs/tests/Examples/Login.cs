@@ -14,18 +14,18 @@ public class Login
     
     Result SetCreds(string user, string pass) => 
             
-        Rail.Ⅱ___Ⅱ
-            .Ⅱ___Ⅱ(user)
-            .Ⅱ_Ɂ_Ⅱ(string.IsNullOrWhiteSpace, Name.Required)
-            .Ⅱ___Ⅱ(user => user.Trim())
-            .Ⅱ_Ɂ_Ⅱ(user => user.Length < MinLength, Name.MinLength)
-            .Ⅱ_Ɂ_Ⅱ(user => user.Length > MaxLength, Name.MaxLength)
-            .Ⅱ___Ⅱ(out User)
-            .Ⅱ___Ⅱ(pass)
-            .Ⅱ_Ɂ_Ⅱ(pass => pass is null, Password.Required)
-            .Ⅱ_Ɂ_Ⅱ(pass => pass.Length < MinLength, Password.MinLength)
-            .Ⅱ_Ɂ_Ⅱ(pass => pass.Length > MaxLength, Password.MaxLength)
-            .Ⅱ___Ⅱ(out Pass);
+        Rail.ㅣ__ㅣ
+            .ㅣ__ㅣ(user)
+            .ㅣ__ㅣɁ(string.IsNullOrWhiteSpace, Name.Required)
+            .ㅣ__ㅣ(user => user.Trim())
+            .ㅣ__ㅣɁ(user => user.Length < MinLength, Name.MinLength)
+            .ㅣ__ㅣɁ(user => user.Length > MaxLength, Name.MaxLength)
+            .ㅣ__ㅣ(out User)
+            .ㅣ__ㅣ(pass)
+            .ㅣ__ㅣɁ(pass => pass is null, Password.Required)
+            .ㅣ__ㅣɁ(pass => pass.Length < MinLength, Password.MinLength)
+            .ㅣ__ㅣɁ(pass => pass.Length > MaxLength, Password.MaxLength)
+            .ㅣ__ㅣ(out Pass);
     
     [SetUp]
     public void SetUp()

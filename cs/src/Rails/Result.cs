@@ -2,22 +2,22 @@ namespace Rails;
 
 public interface Result
 {
-    Result<T> Ⅱ___Ⅱ<T>(T value);
+    Result<T> ㅣ__ㅣ<T>(T value);
     
-    Result Ⅱ___Ⅱ(Action action);
+    Result ㅣ__ㅣ(Action action);
     
-    Result<T> Ⅱ___Ⅱ<T>(Func<T> function);
+    Result<T> ㅣ__ㅣ<T>(Func<T> function);
     
     Result Ⅱ_Ɂ_Ⅱ(Func<bool> condition, string message = null!);
 }
 
 public interface Result<T> : Result
 {
-    Result<T> Ⅱ___Ⅱ(out T value);
+    Result<T> ㅣ__ㅣ(out T value);
     
-    Result<T> Ⅱ___Ⅱ(Action<T> action);
+    Result<T> ㅣ__ㅣ(Action<T> action);
     
-    Result<TT> Ⅱ___Ⅱ<TT>(Func<T, TT> function);
+    Result<TT> ㅣ__ㅣ<TT>(Func<T, TT> function);
     
-    Result<T> Ⅱ_Ɂ_Ⅱ(Func<T, bool> condition, string message = null!);
+    Result<T> ㅣ__ㅣɁ(Func<T, bool> condition, string message = null!);
 }

@@ -2,5 +2,5 @@
 
 public static class Rail
 {
-    public static Result Ⅱ___Ⅱ => new Ok();
+    public static Result ㅣ__ㅣ => new Ok();
 }

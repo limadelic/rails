@@ -9,12 +9,12 @@ public class Error : Result
         Message = message;
     }
 
-    public Result<T> Ⅱ___Ⅱ<T>(T value) =>
+    public Result<T> ㅣ__ㅣ<T>(T value) =>
         new Error<T>(Message);
 
-    public Result Ⅱ___Ⅱ(Action action) => this;
+    public Result ㅣ__ㅣ(Action action) => this;
 
-    public Result<T> Ⅱ___Ⅱ<T>(Func<T> function) =>
+    public Result<T> ㅣ__ㅣ<T>(Func<T> function) =>
         new Error<T>(Message);
 
 
@@ -25,16 +25,16 @@ public class Error<T> : Error, Result<T>
 {
     public Error(string message = null!) : base(message) {}
 
-    public Result<T> Ⅱ___Ⅱ(out T value)
+    public Result<T> ㅣ__ㅣ(out T value)
     {
         value = default!;
         return this;
     }
 
-    public Result<T> Ⅱ___Ⅱ(Action<T> action) => this;
+    public Result<T> ㅣ__ㅣ(Action<T> action) => this;
 
-    public Result<TT> Ⅱ___Ⅱ<TT>(Func<T, TT> function) => 
+    public Result<TT> ㅣ__ㅣ<TT>(Func<T, TT> function) => 
         new Error<TT>(Message);
 
-    public Result<T> Ⅱ_Ɂ_Ⅱ(Func<T, bool> condition, string message) => this;
+    public Result<T> ㅣ__ㅣɁ(Func<T, bool> condition, string message) => this;
 }
