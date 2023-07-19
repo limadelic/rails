@@ -15,17 +15,17 @@ public class Login
     Result SetCreds(string user, string pass) => 
             
         Return.Ok
-            .Do(user)
+            .And(user)
             .Not(string.IsNullOrWhiteSpace, Name.Required)
-            .Do(user => user.Trim())
+            .And(user => user.Trim())
             .Not(user => user.Length < MinLength, Name.MinLength)
             .Not(user => user.Length > MaxLength, Name.MaxLength)
-            .Do(out User)
-            .Do(pass)
+            .And(out User)
+            .And(pass)
             .Not(pass => pass is null, Password.Required)
             .Not(pass => pass.Length < MinLength, Password.MinLength)
             .Not(pass => pass.Length > MaxLength, Password.MaxLength)
-            .Do(out Pass);
+            .And(out Pass);
     
     [SetUp]
     public void SetUp()
