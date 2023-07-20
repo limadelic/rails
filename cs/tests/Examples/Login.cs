@@ -1,5 +1,6 @@
 namespace Examples;
 
+using Rails.Result;
 using Name = Messages.User.Name;
 using Password = Messages.User.Pass;
 
@@ -14,18 +15,18 @@ public class Login
     
     Result SetCreds(string user, string pass) => 
             
-        Pipe.ㅣㅣ
-            .ㅣㅣ(user)
-            .ㅣɁ(string.IsNullOrWhiteSpace, Name.Required)
-            .ㅣㅣ(user => user.Trim())
-            .ㅣɁ(user => user.Length < MinLength, Name.MinLength)
-            .ㅣɁ(user => user.Length > MaxLength, Name.MaxLength)
-            .ㅣㅣ(out User)
-            .ㅣㅣ(pass)
-            .ㅣɁ(pass => pass is null, Password.Required)
-            .ㅣɁ(pass => pass.Length < MinLength, Password.MinLength)
-            .ㅣɁ(pass => pass.Length > MaxLength, Password.MaxLength)
-            .ㅣㅣ(out Pass);
+        Return.OK
+            .Value(user)
+            .NotIf(string.IsNullOrWhiteSpace, Name.Required)
+            .Func(user => user.Trim())
+            .NotIf(user => user.Length < MinLength, Name.MinLength)
+            .NotIf(user => user.Length > MaxLength, Name.MaxLength)
+            .Value(out User)
+            .Value(pass)
+            .NotIf(pass => pass is null, Password.Required)
+            .NotIf(pass => pass.Length < MinLength, Password.MinLength)
+            .NotIf(pass => pass.Length > MaxLength, Password.MaxLength)
+            .Value(out Pass);
     
     [SetUp]
     public void SetUp()

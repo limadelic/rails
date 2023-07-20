@@ -1,6 +1,7 @@
 namespace Examples;
 
 using FluentAssertions.Primitives;
+using Rails.Result;
 
 public static class Assertions
 {
